@@ -9,4 +9,25 @@ var config = {
   };
   firebase.initializeApp(config);
 
-  
+  var employeeRef = firebase.database().ref('Employee');
+
+ function saveData(empName, Role, startDate, monthlyRate) {
+  var newEmployeeRef = employeeRef.push();
+  newEmployeeRef.set({
+      employeeName: empName,
+      role: Role,
+      startDate: startDate,
+      monthlyRate: monthlyRate
+  });
+ }
+
+ //Retrieve user inputs
+ $("#inputForm").on('click', '.btn-submit', function (e) {
+    e.preventDefault();
+    var empName = $("#employeeName").val().trim();
+    var Role = $("#role").val().trim();
+    var startDate = $("#startDate").val().trim();
+    var monthlyRate = $("#monthlyRate").val().trim();
+
+    saveData(empName, Role, startDate, monthlyRate);
+ });
